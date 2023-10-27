@@ -2,11 +2,12 @@ import BackLink from "@/components/BackLink";
 import SnippetDetails from "@/components/SnippetDetails";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
+import { useState, useEffect } from "react";
 
-function SnippetDetailsPage({ editState }) {
+function SnippetDetailsPage({ editState, resetState }) {
   const router = useRouter();
-  // const { isReady } = router;
   const { id } = router.query;
+  // const [edit, setEdit] = useState(editState);
 
   async function handleDelete() {
     await fetch(`/api/snippets/${id}`, { method: "DELETE" });
@@ -14,10 +15,28 @@ function SnippetDetailsPage({ editState }) {
     router.push("/");
   }
 
+  // Listen for route changes and reset the state when leaving the page
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      if (!url.includes(id)) {
+        // Communicate with the _app.js to reset the state
+        resetState(false);
+      }
+    };
+
+    // Subscribe to the router events
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      // Unsubscribe from the router events when the component unmounts
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, []);
+
   return (
     <>
       <BackLink url={"/"} />
-      {editState && <p>Editted successfully</p>}
+      {editState && <p>Edited successfully</p>}
       <SnippetDetails onDelete={handleDelete} />
     </>
   );
