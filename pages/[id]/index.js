@@ -2,12 +2,11 @@ import BackLink from "@/components/BackLink";
 import SnippetDetails from "@/components/SnippetDetails";
 import { useRouter } from "next/router";
 import { mutate } from "swr";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 function SnippetDetailsPage({ editState, resetState }) {
   const router = useRouter();
   const { id } = router.query;
-  // const [edit, setEdit] = useState(editState);
 
   async function handleDelete() {
     await fetch(`/api/snippets/${id}`, { method: "DELETE" });
