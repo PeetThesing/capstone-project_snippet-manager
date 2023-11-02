@@ -1,3 +1,10 @@
+import React, { useEffect } from 'react';
+import from 'prismjs';
+import 'prismjs/themes/prism-dark-name.css'; // Stelle sicher, dass du das richtige Theme verwendest
+import 'prismjs/components/prism-javascript'; // Beispiel: Für JavaScript-Syntaxhervorhebung
+
+
+
 import Link from "next/link";
 import { useRouter } from "next/router";
 
