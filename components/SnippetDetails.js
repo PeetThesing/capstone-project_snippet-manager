@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+
 import styled from "styled-components";
 import useSWR from "swr";
 
@@ -24,7 +27,9 @@ function SnippetDetails({ onDelete }) {
     <section>
       <Title>{name}</Title>
       <Heading>Code</Heading>
-      <code>{code}</code>
+      <SyntaxHighlighter language="javascript" style={a11yDark}>
+        {code}
+      </SyntaxHighlighter>
       <Heading>Description</Heading>
       <p>{description}</p>
       <Heading>Link</Heading>
