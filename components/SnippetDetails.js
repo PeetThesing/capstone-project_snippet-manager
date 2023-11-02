@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 import styled from "styled-components";
 import useSWR from "swr";
@@ -27,7 +27,12 @@ function SnippetDetails({ onDelete }) {
     <section>
       <Title>{name}</Title>
       <Heading>Code</Heading>
-      <SyntaxHighlighter language="javascript" style={a11yDark}>
+      <SyntaxHighlighter
+        language="javascript"
+        style={a11yLight}
+        showLineNumbers
+        wrapLongLines
+      >
         {code}
       </SyntaxHighlighter>
       <Heading>Description</Heading>
