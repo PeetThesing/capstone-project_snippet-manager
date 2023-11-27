@@ -21,6 +21,7 @@ export default function HomePage() {
   });
   const [isSearching, setIsSearching] = useState(false);
   const [isDropdown, setIsDropdown] = useState(false);
+  const [relevantLastSearches, setRelevantLastSearches] = useState([]);
 
   const fuse = new Fuse(data, fuseOptions);
 
@@ -41,12 +42,21 @@ export default function HomePage() {
 
   function updateLastSearches(newTerm) {
     if (newTerm !== "" && newTerm !== lastSearches[0]) {
-      setLastSearches((prevSearches) =>
-        [newTerm, ...prevSearches.filter((term) => term !== newTerm)].slice(
-          0,
-          5
-        )
-      );
+      setLastSearches((prevSearches) => [
+        newTerm,
+        ...prevSearches.filter((term) => term !== newTerm),
+      ]);
+    }
+    if (newTerm === "") {
+      const zwischenvariable = lastSearches.slice(0, 5);
+      setRelevantLastSearches(zwischenvariable);
+    } else {
+      const zwischenvariable = lastSearches
+        .filter((lastSearch) => {
+          return lastSearch.startsWith(newTerm);
+        })
+        .slice(0, 5);
+      setRelevantLastSearches(zwischenvariable);
     }
   }
 
@@ -124,7 +134,7 @@ export default function HomePage() {
           <StyledDropdown>
             <StyledLine></StyledLine>
             <StyledList>
-              {lastSearches?.map((search, index) => (
+              {relevantLastSearches?.map((search, index) => (
                 <StyledListItem
                   key={index}
                   onClick={() => handleLastSearchClick(search)}
