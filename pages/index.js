@@ -33,14 +33,19 @@ export default function HomePage({ onToggleFavorite, favorites }) {
   const [lastSearches, setLastSearches] = useLocalStorageState("lastSearches", {
     defaultValue: [],
   });
-  // boolean state variable which is set to true as soon as the user starts typing into the search bar
+  // boolean state variable which is set to true when search is initiated (either by typing, clicking, or hitting enter)
   const [isSearching, setIsSearching] = useState(false);
+  //boolean state variable that is set to true once the search-field is clicked/activated
   const [isDropdown, setIsDropdown] = useState(false);
+  //state variable used to navigate trough and select specific items from the lastSearches-array
   const [currentIndex, setCurrentIndex] = useState(-1);
 
+  //fetches data from API
   const { data } = useSWR("/api/snippets");
 
+  //Set up fuse instance
   const fuse = new Fuse(data, fuseOptions);
+
   const inputRef = useRef(null);
 
   // set the focus on StyledSearchBarInput when user clicks the Search-Icon
