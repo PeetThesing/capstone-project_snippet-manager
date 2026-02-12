@@ -5,7 +5,7 @@ import { SWRConfig } from "swr";
 import useSWR from "swr";
 import styled from "styled-components";
 import useLocalStorageState from "use-local-storage-state";
-import { Montserrat } from "@next/font/google";
+import { Montserrat } from "next/font/google";
 const montserratFont = Montserrat({ subsets: ["latin"] });
 
 const fetcher = (...args) => fetch(...args).then((response) => response.json());
