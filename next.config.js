@@ -4,6 +4,7 @@ const nextConfig = {
     styledComponents: true,
   },
   reactStrictMode: true,
+  turbopack: {}, // <-- leere Turbopack-Konfiguration hinzugefügt
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -16,3 +17,4 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
